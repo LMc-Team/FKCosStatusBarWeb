@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FKCosStatusBar - 官方网站</title>
+  <!-- 引入 Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 引入 Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- 配置 Tailwind 自定义颜色和字体 -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6200EE', // Material3 紫色主色调
+            secondary: '#03DAC6', // Material3 次要色调
+            dark: '#121212',
+            light: '#F5F5F5'
+          },
+          fontFamily: {
+            sans: ['Roboto', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <!-- 导航栏 -->
+
+
+  <main class="container mx-auto px-4 py-8 md:py-16">
+    <!-- 应用介绍 -->
+    <section class="text-center mb-16">
+      <h2 class="text-[clamp(2rem,5vw,3rem)] font-bold text-gray-900 mb-6 text-shadow">
+        <br class="md:hidden"> FKCosStatusBar
+      </h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-lg md:text-xl mb-10">
+        为您的日常生活带来便捷，提供高效的功能体验和优雅的界面设计。
+      </p>
+      
+      <!-- 下载按钮 -->
+      <a href="#" class="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-medium py-4 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <i class="fa fa-download mr-2"></i> 下载最新版
+      </a>
+    </section>
+
+    <!-- 版本信息 -->
+    <section class="max-w-2xl mx-auto mb-16">
+      <div class="bg-white rounded-xl shadow-md p-6 md:p-8 card-hover">
+        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+          <i class="fa fa-tag text-primary mr-2"></i> 版本信息
+        </h3>
+        <div class="flex flex-wrap items-center gap-4 text-gray-700">
+          <div class="flex items-center">
+            <span class="font-medium mr-2">当前版本：</span>
+            <span id="version">v2.3.1</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-medium mr-2">更新日期：</span>
+            <span id="updateDate">2025-11-10</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-medium mr-2">大小：</span>
+            <span id="size">12.5 MB</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-medium mr-2">要求：</span>
+            <span id="requirement">Android 15 - 16 (ColorOS)</span>
+          </div>
+          <div class="flex items-center">
+            <span class="font-medium mr-2">运行环境：</span>
+            <span id="environment">LSPosed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 更新信息 -->
+    <section class="max-w-2xl mx-auto mb-16">
+      <div class="bg-white rounded-xl shadow-md p-6 md:p-8 card-hover">
+        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+          <i class="fa fa-history text-primary mr-2"></i> 最新更新内容
+        </h3>
+        
+        <div id="updatesContainer" class="space-y-4 text-gray-700">
+          <!-- 加载中占位 -->
+          <div class="flex justify-center py-4">
+            <i class="fa fa-spinner fa-spin text-primary text-xl"></i>
+            <span class="ml-2 text-gray-500">加载更新信息中...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 再次强调下载按钮 -->
+    <section class="text-center mb-16">
+      <a href="#" class="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-medium py-4 px-8 rounded-full text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <i class="fa fa-download mr-2"></i> 下载最新版
+      </a>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="bg-gray-100 py-6">
+    <div class="container mx-auto px-4 text-center text-gray-600">
+      <p>&copy; 2025 FKCosStatusBar（Treatangus）. 保留所有权利。</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // 导航栏滚动效果
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('header');
+      if (window.scrollY > 10) {
+        header?.classList.add('py-2');
+        header?.classList.remove('py-4');
+      } else {
+        header?.classList.add('py-4');
+        header?.classList.remove('py-2');
+      }
+    });
+    
+    // 下载按钮点击效果
+    document.querySelectorAll('a[href="#"]').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        this.classList.add('scale-95');
+        setTimeout(() => {
+          this.classList.remove('scale-95');
+        }, 200);
+      });
+    });
+
+    // -------------------------- 动态加载更新信息核心逻辑 --------------------------
+    // 替换为你的 TXT 文件实际 URL（必须是可访问的公网地址）
+    const UPDATE_TXT_URL = 'https://fkcosbar.kraftydevs.cn/update-info.txt';
+
+    // 解析 TXT 内容并渲染到页面
+    async function fetchAndRenderUpdateInfo() {
+      const updatesContainer = document.getElementById('updatesContainer');
+      try {
+        // 发送请求获取 TXT 文件
+        const response = await fetch(UPDATE_TXT_URL);
+        if (!response.ok) throw new Error('网络请求失败');
+        
+        const textContent = await response.text();
+        const lines = textContent.split('\n').filter(line => line.trim() !== '');
+        
+        // 解析数据
+        const updateData = {
+          version: '未知版本',
+          updateDate: '未知日期',
+          size: '未知大小',
+          requirement: '未知要求',
+          environment: '未知环境',
+          updates: []
+        };
+        let isParsingUpdates = false;
+
+        lines.forEach(line => {
+          if (isParsingUpdates) {
+            // 解析更新项（去除开头的 "- " 符号）
+            updateData.updates.push(line.replace(/^- /, ''));
+          } else if (line.startsWith('updates:')) {
+            // 遇到 updates: 后开始解析更新列表
+            isParsingUpdates = true;
+          } else {
+            // 解析键值对格式的版本信息
+            const [key, value] = line.split(':', 2);
+            if (key && value) {
+              updateData[key.trim()] = value.trim();
+            }
+          }
+        });
+
+        // 渲染版本信息到页面
+        document.getElementById('version').textContent = updateData.version;
+        document.getElementById('updateDate').textContent = updateData.updateDate;
+        document.getElementById('size').textContent = updateData.size;
+        document.getElementById('requirement').textContent = updateData.requirement;
+        document.getElementById('environment').textContent = updateData.environment;
+
+        // 渲染更新列表到页面
+        if (updateData.updates.length > 0) {
+          updatesContainer.innerHTML = updateData.updates.map(item => `
+            <div class="flex">
+              <div class="flex-shrink-0 mt-1">
+                <i class="fa fa-check-circle text-green-500"></i>
+              </div>
+              <div class="ml-3">
+                <p>${item}</p>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          updatesContainer.innerHTML = `
+            <div class="flex justify-center py-4 text-gray-500">
+              <p>暂无更新内容</p>
+            </div>
+          `;
+        }
+
+      } catch (error) {
+        // 加载失败时显示默认内容
+        console.error('加载更新信息失败：', error);
+        updatesContainer.innerHTML = `
+          <div class="flex justify-center py-4 text-red-500">
+            <i class="fa fa-exclamation-circle mr-2"></i>
+            <p>更新信息加载失败，请刷新页面重试</p>
+          </div>
+        `;
+      }
+    }
+
+    // 页面加载完成后执行加载逻辑
+    window.addEventListener('load', fetchAndRenderUpdateInfo);
+  </script>
+</body>
+</html>

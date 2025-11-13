@@ -1,0 +1,9 @@
+version:v2.3.1
+updateDate:2025-11-10
+size:12.5 MB
+requirement:Android 15 - 16 (ColorOS)
+environment:LSPosed
+updates:
+- 优化了应用启动速度，提升约30%
+- 修复了部分设备上的崩溃问题
+- 改进了夜间模式的显示效果
